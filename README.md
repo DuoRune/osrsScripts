@@ -1,2 +1,2 @@
 # osrsScripts
-A place for my osrs scripts, powered by [https://powerbot.org](powerbot)
+A place for my osrs scripts, powered by [powerbot](https://powerbot.org)
