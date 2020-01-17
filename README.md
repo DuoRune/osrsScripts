@@ -1,2 +1,2 @@
-# RSBots
-A place for my bots
+# osrsScripts
+A place for my osrs scripts, using [powerbot](https://powerbot.org)
