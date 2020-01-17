@@ -20,8 +20,8 @@ public class BuyFurs extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        System.out.println("Buy Furs: " + !ctx.npcs.select().id(BARAEK).within(10).isEmpty());
-        return !ctx.bank.opened() && !ctx.inventory.isFull() && !ctx.npcs.select().id(BARAEK).within(10).isEmpty();
+        System.out.println("Buy Furs: " + !ctx.npcs.select().id(BARAEK).within(5).isEmpty());
+        return !ctx.bank.opened() && !ctx.inventory.isFull() && !ctx.npcs.select().id(BARAEK).within(5).isEmpty();
     }
 
     @Override

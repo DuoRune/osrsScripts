@@ -17,12 +17,16 @@ public class WalkToTrader extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        System.out.println("To Trader: " + (!ctx.bank.opened() && ctx.inventory.isFull() && !ctx.npcs.select().id(BARAEK).within(10).isEmpty()));
-        return !ctx.bank.opened() && !ctx.inventory.isFull() && ctx.npcs.select().id(BARAEK).within(10).isEmpty();
+        System.out.println("To Trader: " + (!ctx.bank.opened() && !ctx.inventory.isFull() && ctx.npcs.select().id(BARAEK).within(5).isEmpty()));
+        System.out.println("To Trader1: " + ctx.npcs.select().id(BARAEK).within(5).isEmpty());
+        System.out.println("To Trader2: " + !ctx.inventory.isFull());
+        System.out.println("To Trader3: " + !ctx.bank.opened());
+        System.out.println("Baraek: " + ctx.npcs.select().id(BARAEK).within(5));
+        return !ctx.bank.opened() && !ctx.inventory.isFull() && ctx.npcs.select().id(BARAEK).within(5).isEmpty();
     }
 
     @Override
     public void execute() {
-        toTrader.traverse();
+        System.out.println("Valid path to trader: " + toTrader.traverse());
     }
 }
