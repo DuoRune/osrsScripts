@@ -1,6 +1,5 @@
 package scripts.VarrockMiner;
 
-
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.PollingScript;
 import org.powerbot.script.Script;

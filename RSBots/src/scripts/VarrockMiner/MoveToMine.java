@@ -12,7 +12,7 @@ import java.util.EnumSet;
 public class MoveToMine extends Task<ClientContext> {
 
     private TilePath path;
-    private Tile mineTile = new Tile(3285, 3365, 0);
+    private Tile mineLocation = new Tile(3285, 3365, 0);
 
     public MoveToMine(ClientContext ctx, TilePath path){
         super(ctx);
@@ -21,8 +21,8 @@ public class MoveToMine extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        Tile thisTile = ctx.players.local().tile();
-        if(!thisTile.equals(mineTile) && !ctx.inventory.isFull()){
+        Tile playerLocation = ctx.players.local().tile();
+        if(playerLocation.distanceTo(mineLocation) > 5 && !ctx.inventory.isFull()){
             return true;
         }
         return false;
