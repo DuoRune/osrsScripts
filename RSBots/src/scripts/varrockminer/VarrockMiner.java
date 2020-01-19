@@ -1,10 +1,9 @@
-package scripts.VarrockMiner;
+package scripts.varrockminer;
 
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.PollingScript;
 import org.powerbot.script.Script;
 import org.powerbot.script.Tile;
-import org.powerbot.script.rt4.TilePath;
 import scripts.Task;
 
 import java.util.ArrayList;
@@ -27,6 +26,20 @@ public class VarrockMiner extends PollingScript<ClientContext> {
 //            new Tile(3288, 3376, 0),
 //            new Tile(3285, 3365, 0)
 //    };
+
+    public enum Selection{
+        COPPER(0), TIN(1), IRON(2);
+
+        private final int id;
+        private Selection(int id){
+            this.id = id;
+        }
+        public int id(){
+            return id;
+        }
+    }
+
+    public Selection miningSelections;
 
     public static final Tile[] PATH = {
             new Tile(3253, 3428, 0),
@@ -64,27 +77,21 @@ public class VarrockMiner extends PollingScript<ClientContext> {
             new Tile(3285, 3365, 0)
     };
 
-    public TilePath pathToMine, pathToBank;
 
     private List<Task> taskList = new ArrayList<>();
 
     @Override
     public void start(){
-
-//        pathToMine = new TilePath(ctx, PATH).randomize(1, 1);
-//        pathToBank = new TilePath(ctx, PATH).reverse().randomize(1, 1);
-
-        pathToMine = new TilePath(ctx, PATH);
-        pathToBank = new TilePath(ctx, PATH).reverse();
-
-        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH) ));
+        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH), new MineSelectedRocks(ctx, Selection.COPPER /*placeholder*/) ));
     }
 
     @Override
     public void poll() {
         for(Task task: taskList){
-            if(task.activate())
+            if(task.activate()) {
                 task.execute();
+                break;
+            }
         }
     }
 }

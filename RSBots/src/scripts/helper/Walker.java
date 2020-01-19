@@ -1,4 +1,4 @@
-package scripts.Walker;
+package scripts.helper;
 
 import org.powerbot.script.Condition;
 import org.powerbot.script.Random;
