@@ -5,13 +5,13 @@ import org.powerbot.script.rt4.ClientContext;
 import scripts.Task;
 import scripts.helper.Walker;
 
-public class MoveToMine extends Task<ClientContext> {
+public class MoveToBank extends Task<ClientContext> {
 
     private final Walker walker;
     private Tile[] path;
-    private final Tile mineLocation = new Tile(3285, 3365, 0);
+    private final Tile bankLocation = new Tile(3253, 3421, 0);
 
-    public MoveToMine(ClientContext ctx, Tile[] tiles){
+    public MoveToBank(ClientContext ctx, Tile[] tiles){
         super(ctx);
         this.walker = new Walker(ctx);
         this.path = tiles;
@@ -19,14 +19,13 @@ public class MoveToMine extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        Tile playerLocation = ctx.players.local().tile();
-        return playerLocation.distanceTo(mineLocation) > 5 && !ctx.inventory.isFull();
+        return ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(bankLocation) > 5;
     }
 
     @Override
-    public void execute(){
+    public void execute() {
         if (!ctx.players.local().inMotion() || ctx.movement.destination().equals(Tile.NIL) || ctx.movement.destination().distanceTo(ctx.players.local()) < 5) {
-            walker.walkPath(path);
+            walker.walkPathReverse(path);
         }
     }
 }

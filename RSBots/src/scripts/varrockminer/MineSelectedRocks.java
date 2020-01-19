@@ -33,7 +33,7 @@ public class MineSelectedRocks extends Task<ClientContext> {
     public void execute(){
         GameObject rock = ctx.objects.select().id(ORE_IDS[miningSelection.id()]).nearest().poll();
         rock.interact("Mine");
-        Condition.wait(() -> ctx.players.local().animation() == -1, 400, 10);
+        Condition.wait(() -> ctx.players.local().animation() == -1, 400, 20);
     }
 
 }

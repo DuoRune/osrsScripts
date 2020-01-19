@@ -42,6 +42,8 @@ public class VarrockMiner extends PollingScript<ClientContext> {
     public Selection miningSelections;
 
     public static final Tile[] PATH = {
+            new Tile(3253, 3421, 0),
+            new Tile(3253, 3425, 0),
             new Tile(3253, 3428, 0),
             new Tile(3255, 3428, 0),
             new Tile(3257, 3428, 0),
@@ -82,7 +84,7 @@ public class VarrockMiner extends PollingScript<ClientContext> {
 
     @Override
     public void start(){
-        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH), new MineSelectedRocks(ctx, Selection.COPPER /*placeholder*/) ));
+        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH), new MineSelectedRocks(ctx, Selection.COPPER /*placeholder*/), new MoveToBank(ctx, PATH) ));
     }
 
     @Override
