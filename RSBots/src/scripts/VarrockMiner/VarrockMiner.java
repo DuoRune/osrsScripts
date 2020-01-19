@@ -77,7 +77,7 @@ public class VarrockMiner extends PollingScript<ClientContext> {
         pathToMine = new TilePath(ctx, PATH);
         pathToBank = new TilePath(ctx, PATH).reverse();
 
-        taskList.addAll(Arrays.asList(new MoveToMine(ctx, pathToBank) ));
+        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH) ));
     }
 
     @Override
