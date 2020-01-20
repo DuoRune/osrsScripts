@@ -1,5 +1,6 @@
 package scripts.varrockminer;
 
+import org.powerbot.script.Random;
 import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 import scripts.Task;
@@ -25,6 +26,9 @@ public class MoveToMine extends Task<ClientContext> {
 
     @Override
     public void execute(){
+        if(!ctx.movement.running()) {
+            ctx.movement.running(ctx.movement.energyLevel() > Random.nextInt(40, 55) && !ctx.movement.running());
+        }
         if (!ctx.players.local().inMotion() || ctx.movement.destination().equals(Tile.NIL) || ctx.movement.destination().distanceTo(ctx.players.local()) < 5) {
             walker.walkPath(path);
         }

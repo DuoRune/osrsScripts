@@ -12,11 +12,15 @@ import scripts.varrockminer.VarrockMiner.Selection;
 
 public class MineSelectedRocks extends Task<ClientContext> {
 
+    /* Tile which represents the location of the mine */
     private Tile mineLocation = new Tile(3285, 3365, 0);
+    /* User selection of ore to mine */
     private Selection miningSelection;
+    /* Hard-coded IDs of each ore rock in Varrock west */
     private int[] COPPER_IDS = {11161, 10943};
     private int[] TIN_IDS = {11361, 11360};
     private int[] IRON_IDS = {11365, 11364};
+    /* List of each list of ore IDs, will be used to reduce redundancy in execute() */
     private int[][] ORE_IDS = {COPPER_IDS, TIN_IDS, IRON_IDS};
 
     public MineSelectedRocks(ClientContext ctx, Selection miningSelection){
@@ -48,5 +52,4 @@ public class MineSelectedRocks extends Task<ClientContext> {
         }
         rock.interact("Mine");
     }
-
 }
