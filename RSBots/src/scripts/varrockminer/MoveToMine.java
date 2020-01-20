@@ -20,7 +20,7 @@ public class MoveToMine extends Task<ClientContext> {
     @Override
     public boolean activate() {
         Tile playerLocation = ctx.players.local().tile();
-        return playerLocation.distanceTo(mineLocation) > 7 && !ctx.inventory.isFull();
+        return playerLocation.distanceTo(mineLocation) > 6 && !ctx.inventory.isFull();
     }
 
     @Override

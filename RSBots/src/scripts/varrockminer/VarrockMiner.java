@@ -84,7 +84,7 @@ public class VarrockMiner extends PollingScript<ClientContext> {
 
     @Override
     public void start(){
-        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH), new MineSelectedRocks(ctx, Selection.TIN /*placeholder*/), new MoveToBank(ctx, PATH), new BankOres(ctx)));
+        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH), new MineSelectedRocks(ctx, Selection.COPPER /*placeholder*/), new MoveToBank(ctx, PATH), new BankOres(ctx)));
     }
 
     @Override

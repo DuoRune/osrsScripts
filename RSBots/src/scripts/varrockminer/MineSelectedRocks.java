@@ -1,12 +1,12 @@
 package scripts.varrockminer;
 
 import org.powerbot.script.Condition;
+import org.powerbot.script.Filter;
 import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.GameObject;
+import org.powerbot.script.rt4.Player;
 import scripts.Task;
-
-import java.util.List;
 
 import scripts.varrockminer.VarrockMiner.Selection;
 
@@ -26,12 +26,25 @@ public class MineSelectedRocks extends Task<ClientContext> {
 
     @Override
     public boolean activate(){
-        return !ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(mineLocation) < 8;
+        return !ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(mineLocation) < 8 && ctx.players.local().animation() == -1;
     }
 
     @Override
     public void execute(){
-        GameObject rock = ctx.objects.select().id(ORE_IDS[miningSelection.id()]).nearest().poll();
+        ctx.players.select().nearest().select(new Filter<Player>() {
+            @Override
+            public boolean accept(Player player) {
+                return !player.equals(ctx.players.local());
+            }
+        });
+        GameObject rock;
+        if(ctx.players.poll().tile().equals(ctx.players.local().tile())){
+            rock = ctx.objects.select().id(ORE_IDS[miningSelection.id()]).nearest().limit(2, 3).poll();
+            System.out.println("Selected farther rock to avoid standing on another player.");
+            System.out.println("Rock loc: " + rock.tile());
+        }else{
+            rock = ctx.objects.select().id(ORE_IDS[miningSelection.id()]).nearest().poll();
+        }
         rock.interact("Mine");
         Condition.wait(() -> ctx.players.local().animation() == -1, 400, 20);
     }
