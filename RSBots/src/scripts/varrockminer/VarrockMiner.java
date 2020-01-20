@@ -150,6 +150,7 @@ public class VarrockMiner extends PollingScript<ClientContext> implements PaintL
         g.drawString("Cur. profit: " + totalProfit, 10, 115);
     }
 
+    /* Uses incoming messages to tally total ore mined */
     public void messaged(MessageEvent messageEvent){
         String message = messageEvent.text();
         if(message.contains("copper")){
