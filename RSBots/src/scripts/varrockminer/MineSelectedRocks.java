@@ -31,6 +31,7 @@ public class MineSelectedRocks extends Task<ClientContext> {
 
     @Override
     public void execute(){
+        Condition.wait(() -> ctx.players.local().animation() == -1, 400, 20);
         ctx.players.select().nearest().select(new Filter<Player>() {
             @Override
             public boolean accept(Player player) {
@@ -46,7 +47,6 @@ public class MineSelectedRocks extends Task<ClientContext> {
             rock = ctx.objects.select().id(ORE_IDS[miningSelection.id()]).nearest().poll();
         }
         rock.interact("Mine");
-        Condition.wait(() -> ctx.players.local().animation() == -1, 400, 20);
     }
 
 }

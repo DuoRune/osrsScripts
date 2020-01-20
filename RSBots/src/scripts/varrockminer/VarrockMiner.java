@@ -6,8 +6,8 @@ import org.powerbot.script.Script;
 import org.powerbot.script.Tile;
 import scripts.Task;
 
+import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -84,7 +84,14 @@ public class VarrockMiner extends PollingScript<ClientContext> {
 
     @Override
     public void start(){
-        taskList.addAll(Arrays.asList(new MoveToMine(ctx, PATH), new MineSelectedRocks(ctx, Selection.COPPER /*placeholder*/), new MoveToBank(ctx, PATH), new BankOres(ctx)));
+
+        String[] options = {"Copper", "Tin", "Iron"};
+        String selection = (String) JOptionPane.showInputDialog(null, "Which ore will the bot mine?", "Varrock Miner", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+        taskList.add(new MoveToMine(ctx, PATH));
+        taskList.add(new MineSelectedRocks(ctx, selection.equals("Copper") ? Selection.COPPER : selection.equals("Tin") ? Selection.TIN : Selection.IRON));
+        taskList.add(new MoveToBank(ctx, PATH));
+        taskList.add(new BankOres(ctx));
     }
 
     @Override
