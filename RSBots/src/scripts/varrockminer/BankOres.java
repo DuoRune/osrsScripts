@@ -1,15 +1,11 @@
 package scripts.varrockminer;
 
-import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
+
 import scripts.Task;
+import static scripts.varrockminer.Constants.*;
 
 public class BankOres extends Task<ClientContext> {
-
-    /* Location of the bank */
-    private final Tile bankLocation = new Tile(3253, 3421, 0);
-    /* ids of the ore items in the inventory */
-    private final int[] ORE_ITEM_IDS = {436, 438, 440};
 
     public BankOres(ClientContext ctx){
         super(ctx);
