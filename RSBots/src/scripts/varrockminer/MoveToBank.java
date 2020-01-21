@@ -7,6 +7,7 @@ import org.powerbot.script.rt4.ClientContext;
 import scripts.Task;
 import scripts.helper.Walker;
 import static scripts.varrockminer.Constants.*;
+import static scripts.varrockminer.GlobalVariables.*;
 
 public class MoveToBank extends Task<ClientContext> {
 
@@ -21,7 +22,7 @@ public class MoveToBank extends Task<ClientContext> {
     /* Activate this if the inventory is full and the player is farther than 5 tiles to the bank */
     @Override
     public boolean activate() {
-        return ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(bankLocation) > 5;
+        return ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(bankLocation) > 5 && mining;
     }
 
     /* If the player is not running, then

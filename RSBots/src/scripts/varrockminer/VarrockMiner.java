@@ -39,6 +39,8 @@ public class VarrockMiner extends PollingScript<ClientContext> implements PaintL
         String[] options = {"Copper", "Tin", "Iron", "Bronze"};
         selection = "" + (String) JOptionPane.showInputDialog(null, "Which task will the bot accomplish?", "Varrock Miner", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
+        bronzeMode = selection.equals("Bronze");
+
         startingXp = ctx.skills.experience(Constants.SKILLS_MINING);
         totalProfit = 0;
 
@@ -48,10 +50,22 @@ public class VarrockMiner extends PollingScript<ClientContext> implements PaintL
             orePrices[i] = GeItem.getPrice(ORE_ITEM_IDS[i]);
         }
 
-        taskList.add(new MoveToMine(ctx));
-        taskList.add(new MineSelectedRocks(ctx, selection.equals("Copper")? Selection.COPPER : selection.equals("Tin")? Selection.TIN : Selection.IRON));
-        taskList.add(new MoveToBank(ctx));
-        taskList.add(new BankOres(ctx));
+        if(bronzeMode){
+            taskList.add(new MoveToMine(ctx));
+            taskList.add(new MineSelectedRocks(ctx, Selection.COPPER));
+            taskList.add(new MoveToBank(ctx));
+            taskList.add(new BankOres(ctx));
+            taskList.add(new MoveToMine(ctx));
+            taskList.add(new MineSelectedRocks(ctx, Selection.TIN));
+            taskList.add(new MoveToBank(ctx));
+            taskList.add(new BankOres(ctx));
+            taskList.add(new TraverseVWestGE(ctx));
+        }else{
+            taskList.add(new MoveToMine(ctx));
+            taskList.add(new MineSelectedRocks(ctx, selection.equals("Copper")? Selection.COPPER : selection.equals("Tin")? Selection.TIN : Selection.IRON));
+            taskList.add(new MoveToBank(ctx));
+            taskList.add(new BankOres(ctx));
+        }
     }
 
     /* Iterates over each task, executing them as necessary.

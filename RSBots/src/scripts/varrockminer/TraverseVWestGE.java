@@ -7,10 +7,12 @@ import org.powerbot.script.rt4.ClientContext;
 import scripts.Task;
 import scripts.helper.Walker;
 import static scripts.varrockminer.Constants.*;
+import static scripts.varrockminer.GlobalVariables.*;
 
 public class TraverseVWestGE extends Task<ClientContext> {
 
     private final Walker walker;
+    private boolean toGE = true;
 
     public TraverseVWestGE(ClientContext ctx){
         super(ctx);
@@ -19,13 +21,19 @@ public class TraverseVWestGE extends Task<ClientContext> {
 
     @Override
     public boolean activate(){
-        if(ctx.players.local().tile().distanceTo(geLocation) > 5 && ctx.players.local().tile().distanceTo(bankLocation) < 4){
+        if(!mining){
+            return true;
+        }
+        if(ctx.players.local().tile().distanceTo(bankLocation) < 4){
             if(!ctx.bank.opened()){
                 ctx.bank.open();
             }
-            if(ctx.bank.id(ORE_ITEM_IDS[0]).count(true) < 14 && ctx.bank.id(ORE_ITEM_IDS[1]).count(true) < 14){
-                ctx.bank.close();
+            if(ctx.bank.select().id(ORE_ITEM_IDS[0]).count(true) < 14 && ctx.bank.select().id(ORE_ITEM_IDS[1]).count(true) < 14){
+                mining = true;
                 return false;
+            }else{
+                ctx.bank.depositInventory();
+                mining = false;
             }
             ctx.bank.close();
         }else{

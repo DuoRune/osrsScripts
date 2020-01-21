@@ -8,6 +8,7 @@ import org.powerbot.script.rt4.Player;
 
 import scripts.Task;
 import static scripts.varrockminer.Constants.*;
+import static scripts.varrockminer.GlobalVariables.*;
 
 public class MineSelectedRocks extends Task<ClientContext> {
 
@@ -24,7 +25,7 @@ public class MineSelectedRocks extends Task<ClientContext> {
     /* activate this task if inventory is not full and player is closer than 8 tiles from the mine and if the player is idling */
     @Override
     public boolean activate(){
-        return !ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(mineLocation) < 8 && ctx.players.local().animation() == -1;
+        return !ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(mineLocation) < 8 && ctx.players.local().animation() == -1 && mining;
     }
 
     /* Waits either 8 seconds or until bot has finished mining the current rock.

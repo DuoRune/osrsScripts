@@ -4,6 +4,7 @@ import org.powerbot.script.rt4.ClientContext;
 
 import scripts.Task;
 import static scripts.varrockminer.Constants.*;
+import static scripts.varrockminer.GlobalVariables.*;
 
 public class BankOres extends Task<ClientContext> {
 
@@ -14,7 +15,7 @@ public class BankOres extends Task<ClientContext> {
     /* activate this task if inventory is full and player is closer than 3 tiles to the nearest bank */
     @Override
     public boolean activate() {
-        return ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(bankLocation) < 3;
+        return ctx.inventory.isFull() && ctx.players.local().tile().distanceTo(bankLocation) < 3 && mining;
     }
 
     /* If the bank is visible, then
