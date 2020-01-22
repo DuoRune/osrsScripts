@@ -1,9 +1,12 @@
 package scripts.evsmelter;
 
-import org.powerbot.script.ClientContext;
+import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.PollingScript;
 import org.powerbot.script.Script;
+
 import scripts.Task;
+import scripts.helper.Walker;
+import static scripts.evsmelter.Constants.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +15,15 @@ import java.util.List;
 public class EdgeVilleSmelter extends PollingScript<ClientContext> {
 
     private List<Task> taskList = new ArrayList<>();
+    Walker walker = new Walker(ctx);
 
     @Override
     public void start() {
-        super.start();
+
     }
 
     @Override
     public void poll() {
-
+        walker.walkPath(GE_TO_EV);
     }
 }
