@@ -7,6 +7,7 @@ import org.powerbot.script.rt4.GeItem;
 
 import scripts.Task;
 import static scripts.varrockminer.Constants.*;
+import static scripts.varrockminer.GlobalVariables.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,8 @@ import java.util.List;
 public class VarrockMiner extends PollingScript<ClientContext> implements PaintListener, MessageListener {
 
     /* List of each task to be executed */
-    private List<Task> taskList = new ArrayList<>();
+    private List<Task> taskListMining = new ArrayList<>();
+    private List<Task> taskListSmelting = new ArrayList<>();
 
     private String selection;
     private int startingXp;
@@ -27,8 +29,6 @@ public class VarrockMiner extends PollingScript<ClientContext> implements PaintL
     /* copper, tin, iron */
     private int[] minedOres;
     private int[] orePrices;
-    /* bronze mode = true */
-    private boolean bronzeMode;
 
     /* Gets input from the user with regards to which ore to mine.
      * Adds each task to the task list.
@@ -51,20 +51,20 @@ public class VarrockMiner extends PollingScript<ClientContext> implements PaintL
         }
 
         if(bronzeMode){
-            taskList.add(new MoveToMine(ctx));
-            taskList.add(new MineSelectedRocks(ctx, Selection.COPPER));
-            taskList.add(new MoveToBank(ctx));
-            taskList.add(new BankOres(ctx));
-            taskList.add(new MoveToMine(ctx));
-            taskList.add(new MineSelectedRocks(ctx, Selection.TIN));
-            taskList.add(new MoveToBank(ctx));
-            taskList.add(new BankOres(ctx));
-            taskList.add(new TraverseVWestGE(ctx));
+            taskListMining.add(new TraverseVWestGE(ctx));
+            taskListMining.add(new MoveToMine(ctx));
+            taskListMining.add(new MineSelectedRocks(ctx, Selection.COPPER));
+            taskListMining.add(new MoveToBank(ctx));
+            taskListMining.add(new BankOres(ctx));
+            taskListMining.add(new MoveToMine(ctx));
+            taskListMining.add(new MineSelectedRocks(ctx, Selection.TIN));
+            taskListMining.add(new MoveToBank(ctx));
+            taskListMining.add(new BankOres(ctx));
         }else{
-            taskList.add(new MoveToMine(ctx));
-            taskList.add(new MineSelectedRocks(ctx, selection.equals("Copper")? Selection.COPPER : selection.equals("Tin")? Selection.TIN : Selection.IRON));
-            taskList.add(new MoveToBank(ctx));
-            taskList.add(new BankOres(ctx));
+            taskListMining.add(new MoveToMine(ctx));
+            taskListMining.add(new MineSelectedRocks(ctx, selection.equals("Copper")? Selection.COPPER : selection.equals("Tin")? Selection.TIN : Selection.IRON));
+            taskListMining.add(new MoveToBank(ctx));
+            taskListMining.add(new BankOres(ctx));
         }
     }
 
@@ -73,12 +73,31 @@ public class VarrockMiner extends PollingScript<ClientContext> implements PaintL
      */
     @Override
     public void poll() {
-        for(Task task: taskList){
-            if(task.activate()) {
-                task.execute();
-                break;
+        if(bronzeMode){
+            if(mining) {
+                for (Task task : taskListMining) {
+                    if (task.activate()) {
+                        task.execute();
+                        break;
+                    }
+                }
+            }else{
+                for (Task task : taskListSmelting) {
+                    if (task.activate()) {
+                        task.execute();
+                        break;
+                    }
+                }
+            }
+        }else{
+            for(Task task: taskListMining){
+                if(task.activate()) {
+                    task.execute();
+                    break;
+                }
             }
         }
+
     }
 
     /* Records time and calculates useful values to the user, and displays them with a basic graphical display */
