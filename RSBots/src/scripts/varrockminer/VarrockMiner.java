@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Script.Manifest(name = "Varrock Miner", properties = "author=DuoRune; topic=0; client=4;", description = "Start at Varrock mine or varrock west bank. Auto mines specified ore and banks it.")
+@Script.Manifest(name = "Varrock Miner", properties = "author=Octa; topic=0; client=4;", description = "Start at Varrock mine or varrock west bank. Auto mines specified ore and banks it.")
 public class VarrockMiner extends PollingScript<ClientContext> implements PaintListener, MessageListener {
 
     /* List of each task to be executed */
