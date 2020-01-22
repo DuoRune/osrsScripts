@@ -6,6 +6,8 @@ import org.powerbot.script.Script;
 
 import scripts.Task;
 import scripts.helper.Walker;
+import scripts.varrockminer.TraverseVWestGE;
+
 import static scripts.evsmelter.Constants.*;
 
 import java.util.ArrayList;
@@ -19,11 +21,18 @@ public class EdgeVilleSmelter extends PollingScript<ClientContext> {
 
     @Override
     public void start() {
-
+        taskList.add(new Bank(ctx));
+        taskList.add(new Smelt(ctx));
+        taskList.add(new Traverse(ctx));
     }
 
     @Override
     public void poll() {
-        walker.walkPath(GE_TO_EV);
+        for(Task task: taskList){
+            if(task.activate()){
+                task.execute();
+                break;
+            }
+        }
     }
 }

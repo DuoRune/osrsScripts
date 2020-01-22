@@ -19,7 +19,7 @@ public class Traverse extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        return ctx.inventory.select().id(ORE_IDS).size() > 0;
+        return ctx.inventory.select().id(ORE_IDS, BAR_IDS).size() > 0;
     }
 
     @Override

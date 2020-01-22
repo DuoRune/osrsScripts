@@ -13,7 +13,7 @@ public class Bank extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        return (!ctx.inventory.isFull() && ctx.inventory.select().size() > 0) && ctx.players.local().tile().distanceTo(geLoc) < 5;
+        return (!ctx.inventory.isFull() && ctx.inventory.select().size() > 0) && ctx.players.local().tile().distanceTo(GE) < 5;
     }
 
     @Override
@@ -26,5 +26,6 @@ public class Bank extends Task<ClientContext> {
             ctx.bank.withdraw(ORE_IDS[0], 14);
             ctx.bank.withdraw(ORE_IDS[1], 14);
         }
+        ctx.bank.close();
     }
 }
