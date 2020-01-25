@@ -6,20 +6,61 @@ public class Constants {
 
     public enum Selection {
 
+        BRONZE("Bronze",2349, 14, BRONZE_REQ, 1/2f),
+        IRON("Iron",2351, 15, IRON_REQ, 1),
+        SILVER("Silver",2355, 16, SILVER_REQ, 1),
+        STEEL("Steel", 2353, 17, STEEL_REQ, 1/3f),
+        GOLD("Gold",2357, 18, GOLD_REQ, 1),
+        MITHRIL("Mithril",2359, 19, MITHRIL_REQ, 1/5f);
+
+        private String name;
+        private int id;
+        private int comp;
+        private int[] reqOres;
+        private float ratio;
+        private Selection(String name, int id, int comp, int[] reqOres, float ratio){
+            this.name = name;
+            this.id = id;
+            this.comp = comp;
+            this.reqOres = reqOres;
+            this.ratio = ratio;
+        }
+        public String metal(){
+            return this.name;
+        }
+        public int id(){
+            return this.id;
+        }
+        public int comp(){
+            return this.comp;
+        }
+        public int[] reqOres(){
+            return this.reqOres;
+        }
+        public float ratio(){
+            return ratio;
+        }
+
     }
 
-    //Copper, Tin
-    public static final int[] ORE_IDS = {436, 438};
-    //Bronze, Iron, ...
-    public static final int[] BAR_IDS = {2349};
-    public static final int[] COMPONENT_IDS = {14};
+    //copper, tin, iron, silver, gold, coal, mithril, adamantite, runite
+    public static final int[] ORE_IDS = {436, 438, 440, 442, 444, 453, 447};
+    private static final int[] BRONZE_REQ = {ORE_IDS[0], ORE_IDS[1]};
+    private static final int[] IRON_REQ = {ORE_IDS[2]};
+    private static final int[] SILVER_REQ = {ORE_IDS[3]};
+    private static final int[] STEEL_REQ = {ORE_IDS[2], ORE_IDS[5]};
+    private static final int[] GOLD_REQ = {ORE_IDS[4]};
+    private static final int[] MITHRIL_REQ = {ORE_IDS[6], ORE_IDS[5]};
 
-    public static final Tile[] GE_TO_EV = {new Tile(3162, 3489, 0), new Tile(3162, 3485, 0), new Tile(3162, 3481, 0), new Tile(3163, 3477, 0), new Tile(3165, 3473, 0), new Tile(3165, 3469, 0), new Tile(3165, 3465, 0), new Tile(3161, 3465, 0), new Tile(3157, 3465, 0), new Tile(3153, 3463, 0), new Tile(3149, 3464, 0), new Tile(3145, 3465, 0), new Tile(3141, 3465, 0), new Tile(3137, 3465, 0), new Tile(3136, 3469, 0), new Tile(3135, 3473, 0), new Tile(3131, 3475, 0), new Tile(3129, 3479, 0), new Tile(3129, 3483, 0), new Tile(3128, 3487, 0), new Tile(3128, 3491, 0), new Tile(3130, 3495, 0), new Tile(3130, 3499, 0), new Tile(3130, 3503, 0), new Tile(3132, 3507, 0), new Tile(3132, 3511, 0), new Tile(3134, 3515, 0), new Tile(3130, 3516, 0), new Tile(3126, 3516, 0), new Tile(3122, 3515, 0), new Tile(3119, 3511, 0), new Tile(3116, 3508, 0), new Tile(3114, 3504, 0), new Tile(3110, 3504, 0), new Tile(3108, 3500, 0)};
+    public static final Tile[] BANK_TO_EV = {new Tile(3108, 3499, 0), new Tile(3105, 3499, 0), new Tile(3102, 3499, 0), new Tile(3099, 3497, 0), new Tile(3096, 3494, 0)};
 
-    public static final Tile GE = new Tile(3162, 3489, 0);
+    public static final Tile BANK = new Tile(3096, 3494, 0);
     public static final Tile EV = new Tile(3108, 3500, 0);
 
     public static final int FURNACE = 16469;
+    public static final int FURNACE_WIDGET = 270;
+
+    public static final int INVENTORY_SIZE = 28;
 
 
 }

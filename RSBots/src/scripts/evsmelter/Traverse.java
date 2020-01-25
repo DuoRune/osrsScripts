@@ -19,7 +19,7 @@ public class Traverse extends Task<ClientContext> {
 
     @Override
     public boolean activate() {
-        return ctx.inventory.select().id(ORE_IDS, BAR_IDS).size() > 0;
+        return (ctx.inventory.isFull() && ctx.inventory.select().id(ORE_IDS).size() > 0) || (ctx.inventory.select().id(ORE_IDS).size() == 0);
     }
 
     @Override
@@ -29,9 +29,9 @@ public class Traverse extends Task<ClientContext> {
         }
         if (!ctx.players.local().inMotion() || ctx.movement.destination().equals(Tile.NIL) || ctx.movement.destination().distanceTo(ctx.players.local()) < 5) {
             if(ctx.inventory.select().id(ORE_IDS).size() > 0){
-                walker.walkPath(GE_TO_EV);
-            }else if(ctx.inventory.select().id(BAR_IDS).size() > 0){
-                walker.walkPathReverse(GE_TO_EV);
+                walker.walkPathReverse(BANK_TO_EV);
+            }else if(ctx.inventory.select().id(ORE_IDS).size() == 0){
+                walker.walkPath(BANK_TO_EV);
             }
         }
     }
