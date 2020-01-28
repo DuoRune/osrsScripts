@@ -19,7 +19,14 @@ public class Constants {
         }
     }
 
+    //Copper, tin, iron
     public static final int[] ORE_ITEM_IDS = {436, 438, 440};
+
+    // Radius around the player within which rocks will be selected to mine
+    public static final int MINEABLES_DIST = 12;
+    // Id of the player's animations
+    public static final int ANIMATION_MINING = 628;
+    public static final int ANIMATION_IDLE = -1;
 
     /* Hard-coded IDs of each ore rock in Varrock west mine */
     public static final int[] COPPER_IDS = {11161, 10943};

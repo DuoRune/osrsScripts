@@ -1,7 +1,6 @@
 package scripts.varrockminer;
 
 import org.powerbot.script.Condition;
-import org.powerbot.script.Filter;
 import org.powerbot.script.Tile;
 import org.powerbot.script.rt4.ClientContext;
 import org.powerbot.script.rt4.GameObject;
@@ -38,10 +37,8 @@ public class MineSelectedRocks extends Task<ClientContext> {
      */
     @Override
     public void execute(){
-        Condition.wait(() -> ctx.players.local().animation() == -1, 400, 20);
-        ctx.objects.select().id(ORE_IDS[miningSelection.id()]).within(15).nearest();
         ctx.objects.select((GameObject rock) -> {
-            ctx.players.select().within(10).select((Player player) -> !player.equals(ctx.players.local()));
+            ctx.players.select().within(MINEABLES_DIST + 1).select((Player player) -> !player.equals(ctx.players.local()));
             Tile[] adjLocs = new Tile[4];
             adjLocs[0] = new Tile(rock.tile().x() + 1, rock.tile().y());
             adjLocs[1] = new Tile(rock.tile().x() -1, rock.tile().y());
@@ -55,11 +52,12 @@ public class MineSelectedRocks extends Task<ClientContext> {
                 }
             }
             return true;
-        });
-        if(ctx.objects.size() == 0){
-
+        }).id(ORE_IDS[miningSelection.id()]).within(MINEABLES_DIST).nearest();
+        if(ctx.objects.isEmpty()){
+            //TODO: Hop worlds
         }
         GameObject rock = ctx.objects.nearest().poll();
         rock.interact("Mine");
+        Condition.wait(() -> ctx.players.local().animation() != ANIMATION_MINING, 200, 10);
     }
 }
